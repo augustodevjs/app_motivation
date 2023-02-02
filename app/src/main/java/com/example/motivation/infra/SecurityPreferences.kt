@@ -8,10 +8,10 @@ class SecurityPreferences(context: Context) {
         context.getSharedPreferences("Motivation", Context.MODE_PRIVATE)
 
     fun storeString(key: String, str: String) {
-        security.edit().putString(key, str).apply()
+        this.security.edit().putString(key, str).apply()
     }
 
-    fun getString(key: String): String {
-        return security.getString(key, "") ?: ""
+    fun getStoredString(key: String): String {
+        return this.security.getString(key, "") ?: ""
     }
 }

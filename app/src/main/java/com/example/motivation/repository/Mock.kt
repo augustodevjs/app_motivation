@@ -1,4 +1,4 @@
-package com.example.motivation.data
+package com.example.motivation.repository
 
 import com.example.motivation.infra.MotivationConstants
 import kotlin.random.Random
@@ -6,11 +6,11 @@ import kotlin.random.Random
 data class Phrase(val description: String, val categoryId: Int)
 
 class Mock {
-    private val sunny = MotivationConstants.FILTER.SUNNY
     private val all = MotivationConstants.FILTER.ALL
+    private val sunny = MotivationConstants.FILTER.SUNNY
     private val happy = MotivationConstants.FILTER.HAPPY
 
-    private val mListPhrase = listOf<Phrase>(
+    private val listPhrases: List<Phrase> = listOf(
         Phrase("Não sabendo que era impossível, foi lá e fez.", happy),
         Phrase("Você não é derrotado quando perde, você é derrotado quando desiste!", happy),
         Phrase("Quando está mais escuro, vemos mais estrelas!", happy),
@@ -27,10 +27,13 @@ class Mock {
     )
 
     fun getPhrase(value: Int): String {
-        val filteredPhrases = mListPhrase.filter { it.categoryId == value || value == all }
+        if(value != all) {
+            val filteredPhrases = listPhrases.filter { it.categoryId == value }
+            val index = Random.nextInt(filteredPhrases.size)
+            return filteredPhrases[index].description
+        }
 
-        val index = Random.nextInt(filteredPhrases.size)
-
-        return filteredPhrases[index].description
+        val index = Random.nextInt(listPhrases.size)
+        return listPhrases[index].description
     }
 }
