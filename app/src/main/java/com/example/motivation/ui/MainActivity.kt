@@ -6,12 +6,13 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import com.example.motivation.infra.MotivationConstants
 import com.example.motivation.R
+import com.example.motivation.data.Mock
 import com.example.motivation.infra.SecurityPreferences
 import com.example.motivation.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
-    private var categoryId = 1
+    private var categoryId = MotivationConstants.FILTER.ALL
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -21,6 +22,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.hide()
 
         handleFilter(R.id.image_all_inclusive)
+        handleNextPhrase()
 
         handleUserName()
 
@@ -32,12 +34,15 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View) {
         if (view.id == R.id.button_new_phrase) {
-            println("oi")
+            handleNextPhrase()
         } else if (view.id in listOf(R.id.image_all_inclusive, R.id.image_happy, R.id.image_sunny)) {
             handleFilter(view.id)
         }
     }
 
+    private fun handleNextPhrase() {
+        binding.textPhrase.text = Mock().getPhrase(categoryId)
+    }
     private fun handleFilter(id: Int) {
         binding.imageAllInclusive.setColorFilter(ContextCompat.getColor(this, R.color.dark_purple))
         binding.imageHappy.setColorFilter(ContextCompat.getColor(this, R.color.dark_purple))
