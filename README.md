@@ -11,6 +11,7 @@ Neste aplicativo, foi criado um aplicativo de motivação no qual eu digito o no
 - Navegação de Activities
 - SharedPreferences
 - Mock de Dados
+- Internacionalização
 
 # License
 © Projeto feito por [João Augusto](https://www.linkedin.com/in/joaoaugustodevjs/) 🤝
